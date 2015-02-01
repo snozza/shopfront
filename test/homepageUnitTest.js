@@ -17,7 +17,7 @@ describe('Pages of site', function() {
 
     it('responds with an error status code', function(done) {
       http.get('http://localhost:3000/foobar', function(res) {
-        expect(res.statusCode).to.eql(200);
+        expect(res.statusCode).to.eql(404);
         done();
       });
     });

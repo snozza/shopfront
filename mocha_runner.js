@@ -1,7 +1,6 @@
 var glob = require('glob');
 var spawn = require('child_process').spawn;
-var app = require('./app');
-var mongoose = require('mongoose');
+var app = require('./server');
 
 var port = process.env.PORT || 3000;
 
