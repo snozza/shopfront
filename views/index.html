@@ -74,7 +74,7 @@
                     <a href="#" class="list-group-item">Women's Formalwear</a>
                     <a href="#" class="list-group-item">Men's Footwear</a>
                     <a href="#" class="list-group-item">Men's Casualwear</a>
-                    <a href="#" class="list-group-item">Men's FormalWear</a>
+                    <a href="#" class="list-group-item">Men's Formalwear</a>
                 </div>
             </div>
 
@@ -124,7 +124,7 @@
                             </div>
                             <div class="stock">
                             <p class="pull-right">5 in stock</p>                    
-                                <p><button class="btn btn-primary" href="#">Add to Cart</button></p>                         
+                                <p><button data-id='1234' class="btn btn-primary" href="#">Add to Cart</button></p>                         
                             </div>
                         </div>
                     </div>
@@ -150,6 +150,52 @@
         </p>
     </section>
 
+    <!-- shopping cart -->
+    <section id='shopping-cart'>
+            
+        <div class="container">
+
+            <div class="col-md-5 col-sm-12">
+                <h1>Your shopping cart</h1>
+            </div>
+            
+            <div class="col-md-7 col-sm-12 text-center">
+                <ul class=>
+                    <li class="row list-inline columnCaptions">
+                        <span class="pull-left">QTY</span>
+                        <span class="pull-left">ITEM</span>
+                        <span>Price</span>
+                    </li>
+                    <li class="row whited">
+                        <span class="quantity">1</span>
+                        <span class="itemName">Birthday Cake</span>
+                        <span class="popbtn"><a class="arrow"></a></span>
+                        <span class="price">$49.95</span>
+                    </li>
+                    <li class="row whited">
+                        <span class="quantity">50</span>
+                        <span class="itemName">Party Cups</span>
+                        <span class="popbtn"><a class="arrow"></a></span>
+                        <span class="price">$5.00</span>
+                    </li>
+                    <li class="row totals">
+                        <span class="itemName">Total:</span>
+                        <span class="price">$1694.43</span>
+                        <span class="order"> <a class="text-center">ORDER</a></span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+            <!-- The popover content -->
+
+            <div id="popover" style="display: none">
+                <a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+        </section>
+
     <div class="container">
 
         <hr>
@@ -174,6 +220,7 @@
 
     <!-- Other JavaScript -->
     <script src="js/navigation.js"></script>
+    <script src="js/customjs.js"></script>
 
 </body>
 

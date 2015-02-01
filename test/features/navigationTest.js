@@ -1,7 +1,7 @@
 var webdriverio = require('webdriverio');
 var expect = require('chai').expect;
 
-describe('Navigating the site', function() {
+describe('#Navigating', function() {
 
   var client = {};
 
@@ -80,6 +80,25 @@ describe('Navigating the site', function() {
         .waitForVisible('#categories', 1000, true)
         .isVisible('#categories', function(err, val) {
           expect(val).to.be.false;
+        })
+        .call(done);
+    });
+  });
+
+  describe('Visiting shopping cart', function() {
+    this.timeout(9999999);
+
+    beforeEach(function(done) {
+      client
+        .click('#cart')
+        .waitForVisible('#shopping-cart', 1000)
+        .call(done);
+    });
+
+    it('has a shopping cart', function(done) {
+      client
+        .isVisible('#shopping-cart', function(err, val) {
+          expect(val).to.be.true;
         })
         .call(done);
     });
