@@ -39,5 +39,12 @@ describe('Navigating the site', function() {
         .call(done);
     });
 
+    it('has products listed', function(done) {
+      client.
+        isExisting('#products', function(err, val) {
+          expect(val).to.be.true;
+        }).
+        call(done);
+    });
   });
 });
