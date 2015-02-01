@@ -34,6 +34,15 @@ body {
     width: 100%;
 }
 
+#blurb {
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
 .stock {
     padding-right: 10px;
     padding-left: 10px;

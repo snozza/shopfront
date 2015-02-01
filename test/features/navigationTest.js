@@ -10,17 +10,18 @@ describe('Navigating the site', function() {
     client.init(done);
   });
 
+  beforeEach(function(done) {
+    client
+      .url('http://localhost:3000')
+      .call(done);
+  });
+
   after(function(done) {
     client.end(done);
   });
 
   describe('Visiting the main page', function() {
     this.timeout(99999999);
-
-    beforeEach(function(done) {
-      client.url('http://localhost:3000')
-      .call(done);
-    });
 
     it('has a title', function(done) {
       client
@@ -45,6 +46,42 @@ describe('Navigating the site', function() {
           expect(val).to.be.true;
         }).
         call(done);
+    });
+  });
+
+  describe('Visting about section', function() {
+    this.timeout(99999999);
+
+    beforeEach(function(done) {
+      client
+        .click('#about')
+        .waitForExist('#blurb', 1000)
+        .call(done);
+    });
+
+    it('has a visible blurb', function (done) {
+      client
+        .isVisible('#categories', function(err, val) {
+          expect(val).to.be.true;
+        })
+        .call(done);
+    });
+
+    it('company blurb has text', function(done) {
+      client
+        .getText('h2', function(err, text) {
+          expect(text).to.eql('About Us');
+        })
+        .call(done);
+    });
+
+    it('does not have and products visible', function(done) {
+      client
+        .waitForVisible('#categories', 1000, true)
+        .isVisible('#categories', function(err, val) {
+          expect(val).to.be.false;
+        })
+        .call(done);
     });
   });
 });
