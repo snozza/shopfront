@@ -55,13 +55,13 @@ describe('Navigating the site', function() {
     beforeEach(function(done) {
       client
         .click('#about')
-        .waitForExist('#blurb', 1000)
+        .waitForVisible('#blurb', 1000)
         .call(done);
     });
 
     it('has a visible blurb', function (done) {
       client
-        .isVisible('#categories', function(err, val) {
+        .isVisible('#blurb', function(err, val) {
           expect(val).to.be.true;
         })
         .call(done);
