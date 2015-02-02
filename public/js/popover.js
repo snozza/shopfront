@@ -1,7 +1,6 @@
-$(function() {
-	var pop = $('.popbtn');
-	var row = $('.row:not(:first):not(:last)');
-
+function popupButton() {
+	var pop = $('body').find('.popbtn');
+	var row = $('body').find('.row:not(:first):not(:last)');
 
 	pop.popover({
 		trigger: 'manual',
@@ -9,11 +8,12 @@ $(function() {
 		container: 'body',
 		placement: 'bottom',
 		animation: false,
-		content: function() {
+		content: function() {	
+		console.log($(pop).attr('data-id'));
+		console.log($($('#popover').data('id', '1')))	
 			return $('#popover').html();
 		}
 	});
-
 
 	pop.on('click', function(e) {
 		pop.popover('toggle');
@@ -30,4 +30,4 @@ $(function() {
 		return false;
 	});
 
-});
+}

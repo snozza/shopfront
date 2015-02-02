@@ -28,8 +28,13 @@ app.get('/showcart', function(req, res) {
   res.send(db.showCart());
 });
 
-app.post('/addcart', function(req, res) {
+app.post('/items', function(req, res) {
   res.send(db.takeItem(req.body.id));
+});
+
+app.delete('/items', function(req, res) {
+  console.log(req.body.id);
+  res.send(db.returnItem(req.body.id));
 });
 
 if(!module.parent) {
