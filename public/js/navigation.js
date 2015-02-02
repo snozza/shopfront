@@ -15,18 +15,26 @@ function Navigation() {
                     '</div>' +
                     '</div>'
                     return html;
-                  };
+  };
   this.cartHTML = function(item) {var html = 
                         '<li class="row whited">' +
                         '<span class="quantity">1</span>' +
                         '<span class="itemName">' + item.name + '</span>' +
                         '<span class="popbtn"><a class="arrow"></a></span>' +
-                        '<span class="price">£' + item.price +'</span></li>'
+                        '<span class="price">£' + item.price * item.quantity +'</span></li>'
                         return html;
-                      };
+  };
+  this.totalHTML = function(total) {var html =
+                        '<li class="row totals">' + 
+                        '<span class="itemName">Total:</span>' + 
+                        '<span class="price">£' + Number(total).toFixed(2) + '</span>' +
+                        '<span class="order"> <a class="text-center">ORDER</a></span></li>'
+                        return html;
+  };
 };
 
 Navigation.prototype.getAllItems = function() {
+  $('#products').empty();
   _this = this;
   $.get('http://localhost:3000/items', function(data) {
     $.each(data, function(index, item) {
@@ -42,10 +50,16 @@ Navigation.prototype.addToCart = function(id) {
 };
 
 Navigation.prototype.showCart = function() {
+  $('#cartList').empty();
+  _this = this;
+  var total = 0;
   $.get('http://localhost:3000/showcart', function(data) {
     $.each(data, function(index, item) {
-      console.log(item);
+      total += item.price * item.quantity;
+      $('#cartList').append(_this.cartHTML(item));
     });
+  }).then(function() {
+    $('#cartList').append(_this.totalHTML(total));
   });
 };
 
