@@ -22,13 +22,20 @@ describe('#Shopping', function() {
 
   describe('A user can', function() {
 
+    it('see a list of all products', function(done) {
+      client.elements('.product', function(err, val) {
+        expect(val.value.length).to.be.above(10);
+      })
+      .call(done);
+    });
+
     it('add a product to shopping cart', function(done) {
       client
         .click('.btn')
         .click('#cart')
         .waitForVisible('.itemName', 1000)
         .getText('.itemName', function(err, text) {
-          expect(text[0]).to.eql('Suede Shoes, Blue')
+          expect(text[0]).to.contain("Almond Toe Court Shoes")
         })
         .call(done);
     });

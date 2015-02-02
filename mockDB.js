@@ -1,7 +1,7 @@
 function DB() {
   this.db = { '1': {id: '1', name: "Almond Toe Court Shoes, Patent Black",
                 category: "Women's Footwear", price: 99.00, stock: 5},
-              '2': {id: '2', name: "Suede Shoes, Blue, womens_footwear",
+              '2': {id: '2', name: "Suede Shoes, Blue",
                 category: "Women's Footwear", price: 42.00, stock: 4},
               '3': {id: '3', name: "Leather Driver Saddle Loafers, Tan",
                 category: "Men's Footwear", price: 34.00, stock: 12},
@@ -26,6 +26,7 @@ function DB() {
               '13': {id: '13', name: "￼Mid Twist Cut-Out Dress, Pink",
                 category: "Women’s Formalwear", price: 540.00, stock: 5}
             };
+  this.cart = {}
   this.id = Object.keys(this.db).length;
 }
 
@@ -39,6 +40,7 @@ DB.prototype._decreaseStock = function(id) {
 
 DB.prototype.takeItem = function(id) {
   if(this.db[id].stock > 0) {
+    this.addToCart(id);
     this._decreaseStock(id);
     return this.db[id];
   }
@@ -46,10 +48,8 @@ DB.prototype.takeItem = function(id) {
 };
 
 DB.prototype.returnItem = function(id) {
-  if(this.db[id]) { 
+    this.removeFromCart(id);
     return this.increaseStock(id);
-  }
-  else return null;
 };
 
 DB.prototype.allItems = function() {
@@ -66,6 +66,24 @@ DB.prototype.filteredItems = function(category) {
     if(this.db[id].category === category) items.push(this.db[id])
   }
   return items.sort(function(a, b) { return a.id = b.id }); 
+};
+
+DB.prototype.addToCart = function(id) {
+  if(this.cart[id])
+    this.cart[id].quantity++;
+  else {  
+    this.cart[id] = this.db[id];
+    this.cart[id].quantity = 1;
+  }
+  return this.cart[id];
+};
+
+DB.prototype.removeFromCart = function(id) {
+  delete this.cart[id];
+};
+
+DB.prototype.showCart = function() {
+  return this.cart;
 };
 
 module.exports = DB;

@@ -17,11 +17,13 @@ describe('#Mock Database', function() {
   it('can return an item to database', function(done) {
     var startStock = db.db['1'].stock;
     expect(db.returnItem('1')).to.be.above(startStock);
+    expect(db.cart).to.be.empty;
     done();
   });
 
-  it('can take an item from the database', function(done) {
+  it('can take an item from the database and add to cart', function(done) {
     expect(db.takeItem('1')).to.be.ok;
+    expect(db.cart['1']).to.exist;
     done();
   });
 
@@ -44,5 +46,10 @@ describe('#Mock Database', function() {
     done();
   });
 
-
+  it('can return the contents of shopping cart', function(done) {
+    db.takeItem('1');
+    db.takeItem('2');
+    expect(Object.keys(db.showCart()).length).to.eql(2);
+    done();
+  });
 });
