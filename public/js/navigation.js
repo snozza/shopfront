@@ -1,35 +1,38 @@
 function Navigation() {
-  this.itemHTML = function(item) {var html = 
-                    '<div class="col-sm-4 col-lg-4 col-md-4 product">' + 
-                    '<div class="thumbnail">' +
-                    '<img src="img/example_clothing.jpg" alt="">' +
-                    '<div class="caption">' +
-                    '<h4 class="pull-right">£' + item.price + '</h4>' +
-                    '<h4><a href="#">' + item.name + '</a></h4>' +
-                    '<p>Random Description</p>' +
-                    '</div>' +
-                    '<div class="stock">' +
-                    '<p class="pull-right">' + item.stock + ' in stock</p>' +                   
-                    '<p><button data-id=' + item.id + ' class="btn btn-primary" href="#">Add to Cart</button></p>' +                         
-                    '</div>' +
-                    '</div>' +
-                    '</div>'
-                    return html;
+  this.itemHTML = function(item) {
+      var html = 
+      '<div class="col-sm-4 col-lg-4 col-md-4 product">' + 
+      '<div class="thumbnail">' +
+      '<img src="img/example_clothing.jpg" alt="">' +
+      '<div class="caption">' +
+      '<h4 class="pull-right">£' + Number(item.price).toFixed(2) + '</h4>' +
+      '<h4><a href="#">' + item.name + '</a></h4>' +
+      '<p>Random Description</p>' +
+      '</div>' +
+      '<div class="stock">' +
+      '<p class="pull-right">' + item.stock + ' in stock</p>' +                   
+      '<p><button data-id=' + item.id + ' class="btn btn-primary" href="#">Add to Cart</button></p>' +                         
+      '</div>' +
+      '</div>' +
+      '</div>'
+      return html;
   };
-  this.cartHTML = function(item) {var html = 
-                        '<li class="row whited">' +
-                        '<span class="quantity">1</span>' +
-                        '<span class="itemName">' + item.name + '</span>' +
-                        '<span class="popbtn"><a class="arrow"></a></span>' +
-                        '<span class="price">£' + item.price * item.quantity +'</span></li>'
-                        return html;
+  this.cartHTML = function(item) {
+      var html = 
+      '<li class="row whited">' +
+      '<span class="quantity">1</span>' +
+      '<span class="itemName">' + item.name + '</span>' +
+      '<span class="popbtn"><a class="arrow"></a></span>' +
+      '<span class="price">£' + Number(item.price * item.quantity).toFixed(2) +'</span></li>'
+      return html;
   };
-  this.totalHTML = function(total) {var html =
-                        '<li class="row totals">' + 
-                        '<span class="itemName">Total:</span>' + 
-                        '<span class="price">£' + Number(total).toFixed(2) + '</span>' +
-                        '<span class="order"> <a class="text-center">ORDER</a></span></li>'
-                        return html;
+  this.totalHTML = function(total) {
+      var html =
+      '<li class="row totals">' + 
+      '<span class="itemName">Total:</span>' + 
+      '<span class="price">£' + Number(total).toFixed(2) + '</span>' +
+      '<span class="order"> <a class="text-center">ORDER</a></span></li>'
+      return html;
   };
 };
 

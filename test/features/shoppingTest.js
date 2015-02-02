@@ -30,10 +30,13 @@ describe('#Shopping', function() {
     });
 
     it('add a product to shopping cart', function(done) {
+      this.timeout(99999999);
       client
         .click('.btn')
         .click('#cart')
-        .waitForVisible('.itemName', 1000)
+        .waitForExist('.itemName', 2000, function(err, val) {
+          console.log(val)
+        })
         .getText('.itemName', function(err, text) {
           expect(text[0]).to.contain("Almond Toe Court Shoes")
         })
