@@ -2,6 +2,11 @@ function popupButton() {
 	var pop = $('body').find('.popbtn');
 	var row = $('body').find('.row:not(:first):not(:last)');
 	var body = $('body');
+	var popoverContent = function(id) {
+		var html = '<a href="#"><span data-id=' + id + ' class="glyphicon glyphicon-pencil"></span></a>' +
+							 '<a href="#"><span data-id=' + id + ' class="glyphicon glyphicon-remove"></span></a>'
+		return html;
+	};
 
 	pop.popover({
 		trigger: 'manual',
@@ -12,7 +17,7 @@ function popupButton() {
 		content: function() {	
 			var id = $(this).attr('data-id')
 			$('.glyphicon-remove').attr('data-id', id);
-			return $('#popover').html();
+			return popoverContent(id);
 		}
 	});
 

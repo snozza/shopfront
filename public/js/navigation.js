@@ -129,22 +129,11 @@ $(document).on('ready', function() {
 
   $('body').on('click', '.glyphicon-remove', function() {
     $(this).closest('.popover').popover('toggle');
-    $(this).closest('.popover').popover('hide');
     navigation.removeFromCart($(this).attr('data-id'));  
   });
 
   $('body').on('click', '.glyphicon-pencil', function() {
     $(this).closest('.popover').popover('toggle');
-    $(this).closest('.popover').popover('hide');
   });
 
-  $('body').on('click', function (e) {
-    $('[data-original-title]').each(function () {
-      if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && 
-        $('.popover').has(e.target).length === 0) {
-        $(this).popover('toggle');
-        $(this).popover('hide');
-      }
-    });
-  });
 });

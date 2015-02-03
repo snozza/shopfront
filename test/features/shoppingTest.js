@@ -76,8 +76,8 @@ describe('#Shopping', function() {
         })
         .click('.glyphicon-remove')
         .getText('.price', function(err, price) {
-          console.log(price)
-          expect(price[1]).to.eql('£141.00');
+          expect(price[2]).to.be.undefined
+          expect(price[1]).to.eql('£99.00');
         })
         .call(done)
     });
