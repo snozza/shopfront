@@ -34,7 +34,8 @@ app.post('/items', function(req, res) {
 
 app.delete('/items', function(req, res) {
   console.log(req.body.id);
-  res.send(db.returnItem(req.body.id));
+  db.returnItem(req.body.id)
+  res.sendStatus(200);
 });
 
 if(!module.parent) {

@@ -65,6 +65,23 @@ describe('#Shopping', function() {
         .call(done);
     });
 
+    it('delete items in the shopping cart', function(done) {
+      this.timeout(10000);
+      client
+        .click('#cart')
+        .waitForExist('.itemName', 3000)
+        .click('.popbtn')
+        .waitForVisible('.glyphicon-remove', 3000, function(err, val) {
+          console.log(val)
+        })
+        .click('.glyphicon-remove')
+        .getText('.price', function(err, price) {
+          console.log(price)
+          expect(price[1]).to.eql('£141.00');
+        })
+        .call(done)
+    });
+
 
 
   });

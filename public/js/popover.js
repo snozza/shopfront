@@ -1,6 +1,7 @@
 function popupButton() {
 	var pop = $('body').find('.popbtn');
 	var row = $('body').find('.row:not(:first):not(:last)');
+	var body = $('body');
 
 	pop.popover({
 		trigger: 'manual',
@@ -9,15 +10,14 @@ function popupButton() {
 		placement: 'bottom',
 		animation: false,
 		content: function() {	
-		console.log($(pop).attr('data-id'));
-		console.log($($('#popover').data('id', '1')))	
+			var id = $(this).attr('data-id')
+			$('.glyphicon-remove').attr('data-id', id);
 			return $('#popover').html();
 		}
 	});
 
 	pop.on('click', function(e) {
 		pop.popover('toggle');
-		pop.not(this).popover('hide');
 	});
 
 	$(window).on('resize', function() {
@@ -30,4 +30,13 @@ function popupButton() {
 		return false;
 	});
 
+	body.on('click', function (e) {
+    $('[data-original-title]').each(function () {
+      if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && 
+        $('.popover').has(e.target).length === 0) {
+        $(this).popover('toggle');
+        $(this).popover('hide');
+      }
+    });
+  });
 }
