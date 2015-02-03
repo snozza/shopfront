@@ -5,7 +5,7 @@ function Navigation() {
       '<div class="thumbnail">' +
       '<img src="img/example_clothing.jpg" alt="">' +
       '<div class="caption">' +
-      '<h4 class="pull-right">£' + Number(item.price).toFixed(2) + '</h4>' +
+      '<h4 class="pull-right price">£' + Number(item.price).toFixed(2) + '</h4>' +
       '<h4><a href="#">' + item.name + '</a></h4>' +
       '<p>Random Description</p>' +
       '</div>' +
@@ -17,13 +17,13 @@ function Navigation() {
       '</div>'
       return html;
   };
-  this.cartHTML = function(item) {
+  this.cartHTML = function(item, quantity) {
       var html = 
       '<li class="row whited">' +
-      '<span class="quantity">' + item.quantity + '</span>' +
+      '<span class="quantity">' + quantity + '</span>' +
       '<span class="itemName">' + item.name + '</span>' +
       '<span class="popbtn" data-id=' + item.id + '><a class="arrow"></a></span>' +
-      '<span class="price">£' + Number(item.price * item.quantity).toFixed(2) +'</span></li>'
+      '<span class="price">£' + Number(item.price * quantity).toFixed(2) +'</span></li>'
       return html;
   };
   this.totalHTML = function(total) {
@@ -48,7 +48,6 @@ Navigation.prototype.getAllItems = function() {
 
 Navigation.prototype.addToCart = function(id) {
   $.post('items', {id: id}, function(data) {
-    console.log(data);
   });
 };
 
@@ -70,8 +69,8 @@ Navigation.prototype.showCart = function() {
   var total = 0;
   $.get('http://localhost:3000/showcart', function(data) {
     $.each(data, function(index, item) {
-      total += item.price * item.quantity;
-      $('#cartList').append(_this.cartHTML(item));
+      total += item[0].price * item.length;
+      $('#cartList').append(_this.cartHTML(item[0], item.length));
     });
   }).then(function() {
     $('#cartList').append(_this.totalHTML(total));

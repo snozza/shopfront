@@ -70,10 +70,9 @@ DB.prototype.filteredItems = function(category) {
 
 DB.prototype.addToCart = function(id) {
   if(this.cart[id])
-    this.cart[id].quantity++;
+    this.cart[id].push(this.db[id]);
   else {  
-    this.cart[id] = this.db[id];
-    this.cart[id].quantity = 1;
+    this.cart[id] = [this.db[id]];
   }
   return this.cart[id];
 };

@@ -18,7 +18,6 @@ describe('#Sockets', function() {
 
   it('should emit new stock when item is added to cart', function(done) {
     socket.on('update-stock', function(data) {
-      console.log(data)
       expect(data.stock).to.eql(3);
       socket.disconnect();
       done();
