@@ -71,15 +71,13 @@ describe('#Shopping', function() {
         .click('#cart')
         .waitForExist('.itemName', 3000)
         .click('.popbtn')
-        .waitForVisible('.glyphicon-remove', 3000, function(err, val) {
-          console.log(val)
-        })
+        .waitForVisible('.glyphicon-remove', 3000)
         .click('.glyphicon-remove')
         .getText('.price', function(err, price) {
           expect(price[2]).to.be.undefined
           expect(price[1]).to.eql('£99.00');
         })
-        .call(done)
+        .call(done);
     });
 
 

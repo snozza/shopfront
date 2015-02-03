@@ -29,13 +29,18 @@ app.get('/showcart', function(req, res) {
 });
 
 app.post('/items', function(req, res) {
-  res.send(db.takeItem(req.body.id));
+  var stock = db.takeItem(req.body.id);
+  io.sockets.emit('update-stock', stock)
+  res.send(stock);
 });
 
 app.delete('/items', function(req, res) {
-  console.log(req.body.id);
   db.returnItem(req.body.id)
   res.sendStatus(200);
+});
+
+io.on('connection', function(socket) {
+  // console.log('A new client connected: ' + socket.id)
 });
 
 if(!module.parent) {
