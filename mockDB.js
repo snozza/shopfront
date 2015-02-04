@@ -79,7 +79,12 @@ DB.prototype.addToCart = function(id) {
 };
 
 DB.prototype.removeFromCart = function(id) {
+  var keys;
   delete this.cart[id];
+  if((keys = Object.keys(this.cart)).length === 1 &&
+    this.cart[keys[0]][0].category === 'Voucher') {
+    this.removeVoucher([keys[0]])
+  }
 };
 
 DB.prototype.showCart = function() {

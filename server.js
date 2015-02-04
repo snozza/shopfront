@@ -41,7 +41,6 @@ app.delete('/items', function(req, res) {
 
 app.post('/vouchers', function(req, res) {
   var status = db.applyVoucher(req.body.code);
-  console.log(req.body)
   res.sendStatus(status ? 200 : 403);
 });
 
