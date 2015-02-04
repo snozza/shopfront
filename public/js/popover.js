@@ -16,7 +16,6 @@ function popupButton() {
 		animation: false,
 		content: function() {	
 			var id = $(this).attr('data-id')
-			$('.glyphicon-remove').attr('data-id', id);
 			return popoverContent(id);
 		}
 	});

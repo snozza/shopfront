@@ -11,6 +11,7 @@ describe('#Shopping', function() {
   });
 
   beforeEach(function(done) {
+    this.timeout(99999)
     client
       .url('http://localhost:3000')
       .call(done);
@@ -71,7 +72,7 @@ describe('#Shopping', function() {
         .waitForExist('.arrow', 3000)
         .getText('.price', function(err, price) {
           total = price.length-1
-          expect(price[total]).to.eql('£141.00');
+          expect(price[total]).to.contain('£141.00');
         })
         .call(done);
     });
@@ -87,9 +88,24 @@ describe('#Shopping', function() {
         .click('.glyphicon-remove')
         .getText('.price', function(err, price) {
           total = price.length-1
-          expect(price[total]).to.eql('£99.00');
+          expect(price[total]).to.contain('£42.00');
         })
         .call(done);
+    });
+
+    it('can enter a discount code and see new total', function(done) {
+      this.timeout(10000);
+      var total;
+      client
+        .click('#cart')
+        .waitForExist('.itemName', 3000)
+        .getText('.price', function(err, price) {
+          console.log(price)
+          total = price.length-1
+          expect(price[total]).to.contain('£42.00');
+        })
+        .setValue('#discount', 'FIVEDOLLARSOFF')
+        .call(done)
     });
   });
 

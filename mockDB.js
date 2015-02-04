@@ -27,6 +27,7 @@ function DB() {
                 category: "Women’s Formalwear", price: 540.00, stock: 5}
             };
   this.cart = {}
+  this.vouchers = {'GIVEMEFIVEOFF': {price: -5, category: 'Voucher'}};
   this.id = Object.keys(this.db).length;
 }
 
@@ -84,5 +85,17 @@ DB.prototype.removeFromCart = function(id) {
 DB.prototype.showCart = function() {
   return this.cart;
 };
+
+DB.prototype.applyVoucher = function(code) {
+  if(Object.keys(this.cart).length === 0) return false
+  if(this.vouchers[code] && !this.cart[code]) {
+    this.cart[code] = [this.vouchers[code]];
+    return true;
+  }
+};
+
+DB.prototype.removeVoucher = function(code) {
+  return delete this.cart[code];
+}
 
 module.exports = DB;

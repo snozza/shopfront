@@ -163,7 +163,7 @@ footer {
 
 .itemName{  
     color: #727578;
-    font-size :16px;
+    font-size :18px;
     font-weight: bold;
     float: left;
     padding-left:25px;
@@ -222,13 +222,12 @@ footer {
 }
 
 .totals .itemName{
-    margin-top: 1px;
 }
 
 .totals .order{
     float: right;
     padding: 0;
-    margin-top: 40px; 
+    margin-top: 90px; 
     padding-left: 5px;
     cursor: pointer;
 }

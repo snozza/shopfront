@@ -11,7 +11,7 @@ function Navigation() {
       '</div>' +
       '<div class="stock">' +
       '<p class="pull-right">' + item.stock + ' in stock</p>' +                   
-      '<p><button data-id=' + item.id + ' class="btn btn-primary" href="#">Add to Cart</button></p>' +                         
+      '<p><button data-id=' + item.id + ' class="add btn btn-primary" href="#">Add to Cart</button></p>' +                         
       '</div>' +
       '</div>' +
       '</div>'
@@ -26,11 +26,17 @@ function Navigation() {
       '<span class="price">£' + Number(item.price * quantity).toFixed(2) +'</span></li>'
       return html;
   };
-  this.totalHTML = function(total) {
+  this.totalHTML = function(total, discount) {
       var html =
       '<li class="row totals">' + 
-      '<span class="itemName">Total:</span>' + 
-      '<span class="price">£' + Number(total).toFixed(2) + '</span>' +
+      '<span class="itemName"><p>Subtotal:</p>' +
+      '<p>Discount:</p>' +
+      '<p>Total:</p></span>' + 
+      '<span class="price">£' + Number(total).toFixed(2) + '</p>' + 
+      '<p>£' + Number(discount).toFixed(2) + '</p>' +
+      '<p>£' + Number(total + discount).toFixed(2) + '</p></span>' +
+      
+      
       '<span class="order"> <a class="text-center">ORDER</a></span></li>'
       return html;
   };
@@ -67,15 +73,28 @@ Navigation.prototype.showCart = function() {
   $('#cartList').empty();
   _this = this;
   var total = 0;
+  var discount = 0;
   $.get('http://localhost:3000/showcart', function(data) {
     $.each(data, function(index, item) {
       total += item[0].price * item.length;
-      $('#cartList').append(_this.cartHTML(item[0], item.length));
+      if(item[0].category !== 'Voucher')
+        $('#cartList').append(_this.cartHTML(item[0], item.length));
+      else discount += item[0].price;
     });
-  }).then(function() {
-    $('#cartList').append(_this.totalHTML(total));
-  }).then(function() {
-    popupButton();
+    _this.addTotal(total, discount);    
+  });
+};
+
+Navigation.prototype.addTotal = function(total, discount) {
+  $('#cartList').append(_this.totalHTML(total, discount));
+  popupButton();
+};
+
+Navigation.prototype.applyDiscount = function(code) {
+  _this = this;
+  var discount = $('#discount').val();
+  $.post('vouchers', {code: discount}, function(data) {
+    _this.showCart();
   });
 };
 
@@ -122,7 +141,7 @@ $(document).on('ready', function() {
     event.preventDefault();
   });
 
-  $('body').on('click', 'button', function() {
+  $('body').on('click', '.add', function() {
     navigation.addToCart($(this).attr('data-id'));
   });
 
@@ -135,4 +154,8 @@ $(document).on('ready', function() {
     $(this).closest('.popover').popover('toggle');
   });
 
+  $('body').on('click', '#applyDiscount', function() {
+    var code = $('#discount').val();
+    navigation.applyDiscount(code);
+  });
 });

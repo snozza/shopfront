@@ -39,6 +39,16 @@ app.delete('/items', function(req, res) {
   res.sendStatus(200);
 });
 
+app.post('/vouchers', function(req, res) {
+  var status = db.applyVoucher(req.body.code);
+  console.log(req.body)
+  res.sendStatus(status ? 200 : 403);
+});
+
+app.delete('/vouchers', function(req, res) {
+  res.sendStatus(db.removeVoucher(req.body.id))
+});
+
 io.on('connection', function(socket) {
   // console.log('A new client connected: ' + socket.id)
 });
