@@ -10,25 +10,28 @@ function DB() {
               '5': {id: '5', name: "Flip Flops, Blue",
                 category: "Men's Footwear", price: 19.00, stock: 0},
               '6': {id: '6', name: "Gold Button Cardigan, Black",
-                category: "Women’s Casualwear", price: 167.00, stock: 6},
+                category: "Women's Casualwear", price: 167.00, stock: 6},
               '7': {id: '7', name: "Cotton Shorts, Medium Red, Black",
-                category: "Women’s Casualwear", price: 30.00, stock: 5},
+                category: "Women's Casualwear", price: 30.00, stock: 5},
               '8': {id: '8', name: "Fine Stripe Short Sleeve Shirt, Grey",
-                category: "Men’s Casualwear", price: 49.99, stock: 9},
+                category: "Men's Casualwear", price: 49.99, stock: 9},
               '9': {id: '9', name: "Fine Stripe Short Sleeve Shirt, Green",
-                category: "Men’s Casualwear", price: 49.99, stock: 9},
+                category: "Men's Casualwear", price: 49.99, stock: 9},
               '10': {id: '10', name: "Sharkskin Waistcoat, Charcoal",
-                category: "Men’s Formalwear", price: 75.00, stock: 2},
+                category: "Men's Formalwear", price: 75.00, stock: 2},
               '11': {id: '11', name: "Lightweight Patch Pocket Blazer, Deer",
-                category: "Men’s Formalwear", price: 175.00, stock: 1},
+                category: "Men's Formalwear", price: 175.00, stock: 1},
               '12': {id: '12', name: "Lightweight Patch Pocket Blazer, Deer",
-                category: "Women’s Formalwear", price: 270.00, stock: 10},
+                category: "Women's Formalwear", price: 270.00, stock: 10},
               '13': {id: '13', name: "￼Mid Twist Cut-Out Dress, Pink",
-                category: "Women’s Formalwear", price: 540.00, stock: 5}
+                category: "Women's Formalwear", price: 540.00, stock: 5}
             };
-  this.cart = {}
-  this.vouchers = {'GIVEMEFIVEOFF': {price: -5, category: 'Voucher'}};
-  this.id = Object.keys(this.db).length;
+  this.cart = {};
+  this.vouchers = {};
+  this.voucherCodes = {'GIVEMEFIVEOFF': {price: -5, category: 'Voucher'}};
+  this.fiftyDiscount = -10.00;
+  this.seventyFiveDiscount = -15.00;
+  this.itemDiscount = ["Men's Footwear", "Women's Footwear"];
 }
 
 DB.prototype.increaseStock = function(id) {
@@ -88,19 +91,39 @@ DB.prototype.removeFromCart = function(id) {
 };
 
 DB.prototype.showCart = function() {
-  return this.cart;
+  return {cart: this.cart, calc: this.calculateTotal()};
 };
 
 DB.prototype.applyVoucher = function(code) {
   if(Object.keys(this.cart).length === 0) return false
-  if(this.vouchers[code] && !this.cart[code]) {
-    this.cart[code] = [this.vouchers[code]];
+  if(this.voucherCodes[code] && !this.vouchers[code]) {
+    this.vouchers[code] = this.voucherCodes[code];
     return true;
   }
 };
 
+DB.prototype.calculateTotal = function() {
+  var total = 0;
+  var discountItem = false;
+  for(var item in this.cart) {
+    total += (this.cart[item][0].price * this.cart[item].length)
+    if(this.itemDiscount.indexOf(this.cart[item][0].category) > -1)
+      discountItem = true;
+  }
+  return this.applyDiscounts(total, discountItem);
+};
+
+DB.prototype.applyDiscounts = function(total, discountItem) {
+  var discount = 0;
+  if(total > 50.00) discount += this.fiftyDiscount;
+  if(total > 75.00 && discountItem) discount += this.seventyFiveDiscount;
+  for(var voucher in this.vouchers)
+    discount += this.vouchers[voucher].price;
+  return {subtotal: total, discount: discount, total: total + discount}
+};
+
 DB.prototype.removeVoucher = function(code) {
-  return delete this.cart[code];
+  return delete this.vouchers[code];
 }
 
 module.exports = DB;

@@ -92,10 +92,12 @@ describe('#Shopping', function() {
         })
         .call(done);
     });
+  });
+
+  describe('#Vouchers and discounts', function() {
 
     it('can enter a discount code and see new total', function(done) {
       this.timeout(10000);
-      var total;
       client
         .click('#cart')
         .waitForExist('.itemName', 3000)
@@ -107,6 +109,18 @@ describe('#Shopping', function() {
         .waitForExist('.itemName', 3000)
         .getText('.price', function(err, price) {
           expect(price[price.length-1]).to.contain('£37.00')
+        })
+        .call(done)
+    });
+  
+    it('receive an automatic discount when order is over £50', function(done) {
+      this.timeout(10000);
+      client
+        .click('//*[@data-id="2"]')
+        .click('#cart')
+        .waitForExist('.itemName', 3000)
+        .getText('.price', function(err, price) {
+          expect(price[price.length-1]).to.contain('£54.00')
         })
         .call(done)
     });

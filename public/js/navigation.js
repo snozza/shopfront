@@ -26,15 +26,15 @@ function Navigation() {
       '<span class="price">£' + Number(item.price * quantity).toFixed(2) +'</span></li>'
       return html;
   };
-  this.totalHTML = function(total, discount) {
+  this.totalHTML = function(calc) {
       var html =
       '<li class="row totals">' + 
       '<span class="itemName"><p>Subtotal:</p>' +
       '<p>Discount:</p>' +
       '<p>Total:</p></span>' + 
-      '<span class="price">£' + Number(total).toFixed(2) + '</p>' + 
-      '<p>£' + Number(discount).toFixed(2) + '</p>' +
-      '<p>£' + Number(total + discount).toFixed(2) + '</p></span>' +
+      '<span class="price">£' + Number(calc.subtotal).toFixed(2) + '</p>' + 
+      '<p>£' + Number(calc.discount).toFixed(2) + '</p>' +
+      '<p>£' + Number(calc.total).toFixed(2) + '</p></span>' +
       
       
       '<span class="order"> <a class="text-center">ORDER</a></span></li>'
@@ -72,21 +72,16 @@ Navigation.prototype.removeFromCart = function(id) {
 Navigation.prototype.showCart = function() {
   $('#cartList').empty();
   var _this = this;
-  var total = 0;
-  var discount = 0;
   $.get('http://localhost:3000/showcart', function(data) {
-    $.each(data, function(index, item) {
-      total += item[0].price * item.length;
-      if(item[0].category !== 'Voucher')
-        $('#cartList').append(_this.cartHTML(item[0], item.length));
-      else discount += item[0].price;
+    $.each(data.cart, function(index, item) {
+      $('#cartList').append(_this.cartHTML(item[0], item.length));
     });
-    _this.addTotal(total, discount);    
+    _this.addTotal(data.calc);    
   });
 };
 
-Navigation.prototype.addTotal = function(total, discount) {
-  $('#cartList').append(this.totalHTML(total, discount));
+Navigation.prototype.addTotal = function(calc) {
+  $('#cartList').append(this.totalHTML(calc));
   popupButton();
 };
 
