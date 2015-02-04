@@ -100,11 +100,14 @@ describe('#Shopping', function() {
         .click('#cart')
         .waitForExist('.itemName', 3000)
         .getText('.price', function(err, price) {
-          console.log(price)
-          total = price.length-1
-          expect(price[total]).to.contain('£42.00');
+          expect(price[price.length-1]).to.contain('£42.00');
         })
-        .setValue('#discount', 'FIVEDOLLARSOFF')
+        .setValue('#discount', 'GIVEMEFIVEOFF')
+        .click('#applyDiscount')
+        .waitForExist('.itemName', 3000)
+        .getText('.price', function(err, price) {
+          expect(price[price.length-1]).to.contain('£37.00')
+        })
         .call(done)
     });
   });
