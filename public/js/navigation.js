@@ -44,7 +44,7 @@ function Navigation() {
 
 Navigation.prototype.getAllItems = function() {
   $('#products').empty();
-  _this = this;
+  var _this = this;
   $.get('http://localhost:3000/items', function(data) {
     $.each(data, function(index, item) {
       $('#products').append(_this.itemHTML(item));
@@ -58,7 +58,7 @@ Navigation.prototype.addToCart = function(id) {
 };
 
 Navigation.prototype.removeFromCart = function(id) {
-  _this = this;
+  var _this = this;
   $.ajax({
     url: 'items',
     type: 'DELETE',
@@ -71,7 +71,7 @@ Navigation.prototype.removeFromCart = function(id) {
 
 Navigation.prototype.showCart = function() {
   $('#cartList').empty();
-  _this = this;
+  var _this = this;
   var total = 0;
   var discount = 0;
   $.get('http://localhost:3000/showcart', function(data) {
@@ -86,12 +86,12 @@ Navigation.prototype.showCart = function() {
 };
 
 Navigation.prototype.addTotal = function(total, discount) {
-  $('#cartList').append(_this.totalHTML(total, discount));
+  $('#cartList').append(this.totalHTML(total, discount));
   popupButton();
 };
 
 Navigation.prototype.applyDiscount = function(code) {
-  _this = this;
+  var _this = this;
   var discount = $('#discount').val();
   $.post('vouchers', {code: discount}, function(data) {
     _this.showCart();
@@ -106,39 +106,46 @@ $(document).on('ready', function() {
     window['navigation'] = navigation;
   }());
 
-  $('.navbar-brand').on('click', function(event) {
-    event.preventDefault();
+  $(document).on('click', '.navbar-brand:not(.unclickable)', function(e) {
+    e.preventDefault();
+    var $this = $(this).addClass('unclickable')
     $('#blurb').fadeOut('fast', function() {
       $('#shopping-cart').fadeOut('fast', function() {
         $('#categories').fadeIn('fast', function() {
           navigation.getAllItems();
+          $this.removeClass('unclickable');
         });
       });
     });
   });
 
-  $('#about').on('click', function(event) {
-    event.preventDefault();
+  $(document).on('click', '#about:not(.unclickable)', function(e) {
+    e.preventDefault();
+    var $this = $(this).addClass('unclickable')
     $('#categories').fadeOut('fast', function() {
       $('#shopping-cart').fadeOut('fast', function() {
-        $('#blurb').fadeIn('fast');
+        $('#blurb').fadeIn('fast', function() {
+          $this.removeClass("unclickable");
+        });
       });
     });
   });
 
-  $('#cart').on('click', function(event) {
-    event.preventDefault();
+  $(document).on('click', '#cart:not(.unclickable)', function(e) {
+    e.preventDefault();
+    var $this = $(this).addClass('unclickable')
     $('#categories').fadeOut('fast', function() {
       $('#blurb').fadeOut('fast', function() {
         $('#shopping-cart').fadeIn('fast', function() {
-          navigation.showCart()
+          navigation.showCart();
+          $this.removeClass('unclickable');
         });
       });
     });
   });
 
-  $('body').on('click', 'h4', function(event) {
-    event.preventDefault();
+  $('body').on('click', 'h4', function(e) {
+    e.preventDefault();
   });
 
   $('body').on('click', '.add', function() {
