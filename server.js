@@ -41,7 +41,8 @@ app.delete('/items', function(req, res) {
 
 app.post('/vouchers', function(req, res) {
   var status = db.applyVoucher(req.body.code);
-  res.sendStatus(status ? 200 : 403);
+  if(status) return res.status(200).send({message: "Voucher applied"})
+  else return res.status(403).send({message: ["Invalid voucher"]});
 });
 
 app.delete('/vouchers', function(req, res) {

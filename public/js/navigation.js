@@ -40,6 +40,7 @@ function Navigation() {
       '<span class="order"> <a class="text-center">ORDER</a></span></li>'
       return html;
   };
+  this.timeout;
 };
 
 Navigation.prototype.getAllItems = function() {
@@ -90,8 +91,34 @@ Navigation.prototype.applyDiscount = function(code) {
   var discount = $('#discount').val();
   $.post('vouchers', {code: discount}, function(data) {
     _this.showCart();
-  });
+    _this.displayNotice(data);
+  }).fail(function(data) {
+    _this.displayErrors(data.responseJSON);
+  })
 };
+
+Navigation.prototype.displayErrors = function(errorList) {
+  console.log(errorList)
+  var errorList = errorList.message
+  clearTimeout(this.timeout);
+    if(errorList.length > 0) {
+      $('.tempMessages').html('<ul class="flash error"></ul>');
+        for(var i=0; i < errorList.length; i++) {
+          $('.flash').append('<li>' + errorList[i] + '</li>');
+        }       
+        this.timeout = setTimeout(function() {
+        $('.flash').fadeOut('fast', function() {
+          $(this).remove() })}, 5000);
+    }
+};
+
+Navigation.prototype.displayNotice = function(message) {
+  var message = message.message
+  $('.tempMessages').html('<section class="flash notice">' + message + '</section>');
+    var timeout = setTimeout(function() {
+      $('.flash').fadeOut('fast', function() {
+        $(this).remove() })}, 5000);
+};    
 
 $(document).on('ready', function() {
 
