@@ -23,7 +23,7 @@ describe('#Sockets', function() {
       done();
     });
     request('http://localhost:3000/items', function(err, res, body) {
-      expect(JSON.parse(body)[0]['stock']).to.eql(5);
+      expect(JSON.parse(body).items[0].stock).to.eql(5);
       request.post('http://localhost:3000/items').form({id: '1'});
     });   
   });

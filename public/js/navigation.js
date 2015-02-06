@@ -106,7 +106,7 @@ Navigation.prototype.updateCartCount = function(count) {
 Navigation.prototype.alert = function(message) {
   clearTimeout(this.timeout);
   $(".alert").text(message).show();
-  this.timeout = setTimeout(function() { $(".alert").hide(); }, 3000); 
+  this.timeout = setTimeout(function() { $(".alert").hide(); }, 2000); 
 };  
 
 $(document).on('ready', function() {
