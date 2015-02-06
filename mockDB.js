@@ -34,7 +34,7 @@ function DB() {
   this.itemDiscount = ["Men's Footwear", "Women's Footwear"];
 }
 
-DB.prototype.increaseStock = function(id) {
+DB.prototype._increaseStock = function(id) {
   return ++this.db[id].stock;
 };
 
@@ -48,12 +48,12 @@ DB.prototype.takeItem = function(id) {
     this._decreaseStock(id);
     return this.db[id];
   }
-  else return null;
+  else return 0;
 };
 
 DB.prototype.returnItem = function(id) {
     this.removeFromCart(id);
-    return this.increaseStock(id);
+    return this._increaseStock(id);
 };
 
 DB.prototype.allItems = function() {
@@ -84,9 +84,8 @@ DB.prototype.addToCart = function(id) {
 DB.prototype.removeFromCart = function(id) {
   var keys;
   delete this.cart[id];
-  if((keys = Object.keys(this.cart)).length === 1 &&
-    this.cart[keys[0]][0].category === 'Voucher') {
-    this.removeVoucher([keys[0]])
+  if(Object.keys(this.cart).length === 0) {
+    this.vouchers = {};
   }
 };
 
@@ -121,6 +120,13 @@ DB.prototype.applyDiscounts = function(total, discountItem) {
     discount += this.vouchers[voucher].price;
   return {subtotal: total, discount: discount, total: total + discount}
 };
+
+DB.prototype.cartSize = function() {
+  var size = 0;
+  for(var i in this.cart)
+    size += this.cart[i].length
+  return size;
+}
 
 DB.prototype.removeVoucher = function(code) {
   return delete this.vouchers[code];

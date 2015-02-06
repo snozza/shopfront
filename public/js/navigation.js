@@ -35,8 +35,6 @@ function Navigation() {
       '<span class="price">£' + Number(calc.subtotal).toFixed(2) + '</p>' + 
       '<p>£' + Number(calc.discount).toFixed(2) + '</p>' +
       '<p>£' + Number(calc.total).toFixed(2) + '</p></span>' +
-      
-      
       '<span class="order"> <a class="text-center">ORDER</a></span></li>'
       return html;
   };
@@ -46,22 +44,25 @@ function Navigation() {
 Navigation.prototype.getAllItems = function() {
   $('#products').empty();
   var _this = this;
-  $.get('http://localhost:3000/items', function(data) {
-    $.each(data, function(index, item) {
+  $.get('/items', function(data) {
+    $.each(data.items, function(index, item) {
       $('#products').append(_this.itemHTML(item));
     });
+    _this.updateCartCount(data.cart);
   });
 }
 
 Navigation.prototype.addToCart = function(id) {
-  $.post('items', {id: id}, function(data) {
+  _this = this;
+  $.post('/items', {id: id}, function(data) {
+    _this.updateCartCount(data.cart);
   });
 };
 
 Navigation.prototype.removeFromCart = function(id) {
   var _this = this;
   $.ajax({
-    url: 'items',
+    url: '/items',
     type: 'DELETE',
     data: {id: id},
     success: function() {
@@ -73,7 +74,7 @@ Navigation.prototype.removeFromCart = function(id) {
 Navigation.prototype.showCart = function() {
   $('#cartList').empty();
   var _this = this;
-  $.get('http://localhost:3000/showcart', function(data) {
+  $.get('/showcart', function(data) {
     $.each(data.cart, function(index, item) {
       $('#cartList').append(_this.cartHTML(item[0], item.length));
     });
@@ -97,8 +98,11 @@ Navigation.prototype.applyDiscount = function(code) {
   })
 };
 
+Navigation.prototype.updateCartCount = function(count) {
+  $('#cart-count').text(count);
+}
+
 Navigation.prototype.displayErrors = function(errorList) {
-  console.log(errorList)
   var errorList = errorList.message
   clearTimeout(this.timeout);
     if(errorList.length > 0) {

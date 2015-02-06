@@ -33,10 +33,13 @@ body {
     width: 100%;
 }
 
-ul
-{
+ul{
     list-style-type: none;
 }
+
+#cart-count{
+    color: #fff;
+} 
 
 .flash {
   text-align: center;
@@ -91,6 +94,14 @@ footer {
 
 #shopping-cart {
     display:none;
+}
+
+#applyDiscount {
+    margin-top: 10px;
+}
+
+#discount{
+    padding-bottom: 10px;
 }
 
 /*----------------------------------- 
@@ -181,16 +192,18 @@ footer {
 
 .itemName{  
     color: #727578;
-    font-size :18px;
+    font-size :1.2em;
     font-weight: bold;
     float: left;
     padding-left:25px;
+    word-wrap: break-word;
+    width: 200px;
 }
 
 
 .quantity{  
     color: #4ea6bc;
-    font-size :18px;
+    font-size :1.2em;
     font-weight: bold;
     float : left;
     width: 42px;
@@ -202,9 +215,9 @@ footer {
 .popbtn{
     background-color: #e6edf3;
     margin-left: 25px;
-    height: 63px;
+    height: 80px;
     width: 40px;
-    padding: 32px 0 0 14px !important;
+    padding: 40px 0 0 14px !important;
     float: right;
     cursor: pointer;
 }
@@ -219,7 +232,7 @@ footer {
 
 .price{
     color: #f06953;
-    font-size :18px;
+    font-size :1.2em;
     font-weight: bold;
     float: right;
 }
@@ -240,6 +253,7 @@ footer {
 }
 
 .totals .itemName{
+    width:150px;
 }
 
 .totals .order{
@@ -255,7 +269,7 @@ footer {
     color: #fbfffa;
     font-weight: bold;
     border-radius: 2px;
-    padding: 20px 30px;
+    padding: 15px 15px;
 }
 
 
@@ -294,6 +308,8 @@ footer {
 
 /* Tablet size */
 
+/*max-width: 992px*/
+
 @media (max-width: 992px) {
 
     .container.text-center{
@@ -306,6 +322,11 @@ footer {
 
     .bigcart{
         margin: 0 auto 40px auto;
+    }
+
+    #voucherForm{
+        width: 70%;
+        margin: 0 auto;
     }
 
     .col-md-5.col-sm-12 h1{
@@ -331,6 +352,8 @@ footer {
 
 /* Mobile device size */
 
+/*max-width: 768px*/
+
 @media (max-width: 768px) {
 
     .navbar{ 
@@ -344,11 +367,6 @@ footer {
 
     .navbar-brand{
         padding-left: 0;
-    }
-
-    .breadcrumbBox{
-        height:80px;
-        padding-top:21px;
     }
 
     .col-md-5.col-sm-12 p{
@@ -365,20 +383,19 @@ footer {
         padding-left: 15px ;
     }
 
-    .columnCaptions span{
-        padding: 0 21px 0 0;
-    }
-
-    .columnCaptions span:last-child{
-        float: right;
-        padding-right: 42px;
-    }
-
     .row{
         padding-bottom:10px;
     }
 
+    #voucherForm{
+        width: 70%;
+        margin: 0 auto;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
     .quantity{
+        position: static;
         padding-left: 0px  
         width: 23px;
         padding-right: 40px !important;
@@ -386,13 +403,17 @@ footer {
 
     .popbtn{
         background-color: white;
-        position: absolute;
+        position: static;
         height:40px;
         right: 0;
     }
 
+    .order{
+        float: left;
+    }
+
     .price{ 
-        position: absolute;
+        position: static;
         right: 42px;
     }
 

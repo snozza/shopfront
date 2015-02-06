@@ -21,7 +21,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/items', function(req, res) {
-  res.send(db.allItems());
+  res.send({items: db.allItems(), cart: db.cartSize()});
 });
 
 app.get('/showcart', function(req, res) {
@@ -31,7 +31,7 @@ app.get('/showcart', function(req, res) {
 app.post('/items', function(req, res) {
   var stock = db.takeItem(req.body.id);
   io.sockets.emit('update-stock', stock)
-  res.send(stock);
+  res.status(200).send({cart: db.cartSize()});
 });
 
 app.delete('/items', function(req, res) {

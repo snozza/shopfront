@@ -17,13 +17,6 @@
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
 <body>
@@ -51,7 +44,7 @@
                         <a id='contact' href="#">Contact</a>
                     </li>
                     <li>
-                        <a id='cart' href="#">Cart</a>
+                        <a id='cart' href="#">Cart <span id="cart-count">0</span></a>
                     </li>
                 </ul>
             </div>
@@ -91,13 +84,13 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                    <img class="slide-image" src="img/rsz_as-reshare.jpg" alt="">
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                    <img class="slide-image" src="img/rsz_as-reshare1.jpg" alt="">
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                    <img class="slide-image" src="img/rsz_as-reshare2.jpg" alt="">
                                 </div>
                             </div>
                             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
@@ -134,18 +127,18 @@
     <!-- shopping cart -->
     <section id='shopping-cart'>
             
-        <div class="container">
+        <div class="container text-left">
 
             <div class="col-md-5 col-sm-12">
                 <h1>Your shopping cart</h1>
-                <form>
+                <form id="voucherForm">
                 <input type="text" id="discount" name="discount" placeholder="Enter discount code">
                 <button type="button" class="btn btn-primary" id="applyDiscount">Apply Discount</button>
                 </form>
                 <section class='tempMessages'></section>
             </div>
             
-            <div class="col-md-7 col-sm-12 text-center">
+            <div class="col-md-7 col-sm-12 text-left">
                 <ul id='cartList'></ul>
             </div>
 
