@@ -24,6 +24,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
+
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -55,6 +56,11 @@
 
     <!-- Page Content -->
     <div id="categories" class="container">
+
+        <div class="alert alert-warning" style="display:none">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>Alert Message</strong> Alert Message.
+        </div>
 
         <div class="row">
 
@@ -135,7 +141,11 @@
                 <input type="text" id="discount" name="discount" placeholder="Enter discount code">
                 <button type="button" class="btn btn-primary" id="applyDiscount">Apply Discount</button>
                 </form>
-                <section class='tempMessages'></section>
+                <div class="alert alert-warning" style="display:none">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Alert Message</strong> Alert Message.
+                </div>
+                
             </div>
             
             <div class="col-md-7 col-sm-12 text-left">

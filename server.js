@@ -29,9 +29,9 @@ app.get('/showcart', function(req, res) {
 });
 
 app.post('/items', function(req, res) {
-  var stock = db.takeItem(req.body.id);
-  io.sockets.emit('update-stock', stock)
-  res.status(200).send({cart: db.cartSize()});
+  var item = db.takeItem(req.body.id);
+  io.sockets.emit('update-stock', item)
+  res.status(200).send({item: item, cart: db.cartSize()});
 });
 
 app.delete('/items', function(req, res) {

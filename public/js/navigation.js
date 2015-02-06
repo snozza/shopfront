@@ -56,6 +56,7 @@ Navigation.prototype.addToCart = function(id) {
   _this = this;
   $.post('/items', {id: id}, function(data) {
     _this.updateCartCount(data.cart);
+    _this.alert("Added " + data.item.name + " to cart");
   });
 };
 
@@ -92,9 +93,9 @@ Navigation.prototype.applyDiscount = function(code) {
   var discount = $('#discount').val();
   $.post('vouchers', {code: discount}, function(data) {
     _this.showCart();
-    _this.displayNotice(data);
+    _this.alert(data.message);
   }).fail(function(data) {
-    _this.displayErrors(data.responseJSON);
+    _this.alert(data.responseJSON.message);
   })
 };
 
@@ -102,31 +103,15 @@ Navigation.prototype.updateCartCount = function(count) {
   $('#cart-count').text(count);
 }
 
-Navigation.prototype.displayErrors = function(errorList) {
-  var errorList = errorList.message
+Navigation.prototype.alert = function(message) {
   clearTimeout(this.timeout);
-    if(errorList.length > 0) {
-      $('.tempMessages').html('<ul class="flash error"></ul>');
-        for(var i=0; i < errorList.length; i++) {
-          $('.flash').append('<li>' + errorList[i] + '</li>');
-        }       
-        this.timeout = setTimeout(function() {
-        $('.flash').fadeOut('fast', function() {
-          $(this).remove() })}, 5000);
-    }
-};
-
-Navigation.prototype.displayNotice = function(message) {
-  var message = message.message
-  $('.tempMessages').html('<section class="flash notice">' + message + '</section>');
-    var timeout = setTimeout(function() {
-      $('.flash').fadeOut('fast', function() {
-        $(this).remove() })}, 5000);
-};    
+  $(".alert").text(message).show();
+  this.timeout = setTimeout(function() { $(".alert").hide(); }, 3000); 
+};  
 
 $(document).on('ready', function() {
 
-  (function() {
+  (function() { 
     var navigation = new Navigation();
     navigation.getAllItems();
     window['navigation'] = navigation;
