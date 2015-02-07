@@ -395,6 +395,14 @@ footer {
         padding-bottom:10px;
     }
 
+    .sticky{
+        position:fixed;
+        top:70px;
+        width:92%;
+        z-index:100;
+        text-align: center;
+    }
+
     #voucherForm{
         width: 70%;
         margin: 0 auto;

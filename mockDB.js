@@ -35,7 +35,7 @@ function DB() {
 }
 
 DB.prototype._increaseStock = function(id) {
-  return ++this.db[id].stock;
+  return this.db[id].stock += this.cart[id].length;;
 };
 
 DB.prototype._decreaseStock = function(id) {
@@ -52,8 +52,8 @@ DB.prototype.takeItem = function(id) {
 };
 
 DB.prototype.returnItem = function(id) {
-    this.removeFromCart(id);
-    return this._increaseStock(id);
+  this._increaseStock(id);
+  return this.removeFromCart(id);
 };
 
 DB.prototype.allItems = function() {

@@ -11,7 +11,7 @@ function Navigation() {
       '</div>' +
       '<div class="stock">' +
       '<p class="pull-right">' + item.stock + ' in stock</p>' +                   
-      '<p><button data-id=' + item.id + ' class="add btn btn-primary" href="#">Add to Cart</button></p>' +                         
+      '<p><a data-id=' + item.id + ' data-role="button" class="add btn btn-primary" href="#">Add to Cart</a></p>' +                         
       '</div>' +
       '</div>' +
       '</div>'
@@ -56,6 +56,7 @@ Navigation.prototype.addToCart = function(id) {
   _this = this;
   $.post('/items', {id: id}, function(data) {
     _this.updateCartCount(data.cart);
+    if(!data.item) return _this.alert("Out of stock");
     _this.alert("Added " + data.item.name + " to cart");
   });
 };
@@ -120,8 +121,8 @@ $(document).on('ready', function() {
   $(document).on('click', '.navbar-brand:not(.unclickable)', function(e) {
     e.preventDefault();
     var $this = $(this).addClass('unclickable')
-    $('#blurb').fadeOut('fast', function() {
-      $('#shopping-cart').fadeOut('fast', function() {
+    $('#shopping-cart').fadeOut('fast', function() {
+      $('#blurb').fadeOut('fast', function() {
         $('#categories').fadeIn('fast', function() {
           navigation.getAllItems();
           $this.removeClass('unclickable');
@@ -155,24 +156,25 @@ $(document).on('ready', function() {
     });
   });
 
-  $('body').on('click', 'h4', function(e) {
+  $(document).on('click', 'h4', function(e) {
     e.preventDefault();
   });
 
-  $('body').on('click', '.add', function() {
+  $(document).on('click touchstart', '.add', function(e) {
+    e.preventDefault();
     navigation.addToCart($(this).attr('data-id'));
   });
 
-  $('body').on('click', '.glyphicon-remove', function() {
+  $(document).on('click', '.glyphicon-remove', function() {
     $(this).closest('.popover').popover('toggle');
     navigation.removeFromCart($(this).attr('data-id'));  
   });
 
-  $('body').on('click', '.glyphicon-pencil', function() {
+  $(document).on('click', '.glyphicon-pencil', function() {
     $(this).closest('.popover').popover('toggle');
   });
 
-  $('body').on('click', '#applyDiscount', function() {
+  $(document).on('click', '#applyDiscount', function() {
     var code = $('#discount').val();
     navigation.applyDiscount(code);
   });
