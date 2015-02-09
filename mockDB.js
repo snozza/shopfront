@@ -92,7 +92,7 @@ DB.prototype.removeFromCart = function(id) {
 
 DB.prototype.emptyCart = function() {
   for(var item in this.cart) {
-    this.removeFromCart(this.cart[item][0].id)
+    this.returnItem(this.cart[item][0].id)
   }
 };
 

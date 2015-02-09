@@ -178,4 +178,8 @@ $(document).on('ready', function() {
     var code = $('#discount').val();
     navigation.applyDiscount(code);
   });
+
+  $(document).on('click', function () {
+    $(".navbar-collapse").collapse('hide');
+  });
 });
