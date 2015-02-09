@@ -66,11 +66,12 @@ DB.prototype.allItems = function() {
 };
 
 DB.prototype.filteredItems = function(category) {
+  if(category === "All Products") return this.allItems();
   var items = [];
   for (var id in this.db) {
     if(this.db[id].category === category) items.push(this.db[id])
   }
-  return items.sort(function(a, b) { return a.id = b.id }); 
+  return items.sort(function(a, b) { return a.id - b.id }); 
 };
 
 DB.prototype.addToCart = function(id) {

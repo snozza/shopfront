@@ -108,7 +108,18 @@ Navigation.prototype.alert = function(message) {
   clearTimeout(this.timeout);
   $(".alert").text(message).show();
   this.timeout = setTimeout(function() { $(".alert").hide(); }, 2000); 
-};  
+};
+
+Navigation.prototype.filter = function(category) {
+  $('#products').empty();
+  var _this = this;
+  $.get('/filter', {category: category}, function(data) {
+    $.each(data.items, function(index, item) {
+      $('#products').append(_this.itemHTML(item));
+    });
+    _this.updateCartCount(data.cart);
+  });
+};
 
 $(document).on('ready', function() {
 
@@ -179,7 +190,13 @@ $(document).on('ready', function() {
     navigation.applyDiscount(code);
   });
 
+  $(document).on('click', '.list-group-item', function() {
+    navigation.filter($(this).text());
+  });
+
   $(document).on('click', function () {
-    $(".navbar-collapse").collapse('hide');
+    var toggle = $(".navbar-toggle").is(":visible");
+    if (toggle)
+      $(".navbar-collapse").collapse('hide');
   });
 });

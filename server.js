@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 io.on('connection', function(socket) {
-  // console.log('A new client connected: ' + socket.id)
 });
 
 function Server(dBase) {

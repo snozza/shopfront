@@ -33,9 +33,20 @@ describe('#Navigating', function() {
     });
 
     it('has a product category list', function(done) {
-      client.
-        getText('.list-group-item', function(err, text) {
+      client
+        .getText('.list-group-item', function(err, text) {
           expect(text[0]).to.eql('All Products');
+        })
+        .call(done);
+    });
+
+    it('filters products by category', function(done) {
+      client
+        .click('//*[@id="categories"]/div[2]/div[1]/div/a[4]')
+        .waitForExist('.price', 2000)
+        .getText('//*[@id="products"]/div[1]/div/div[1]/h4[2]/a', function(err, text) {
+          console.log(text)
+          expect(text).to.eql('Lightweight Patch Pocket Blazer, Deer');
         })
         .call(done);
     });
