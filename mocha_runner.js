@@ -1,14 +1,17 @@
 var glob = require('glob');
 var spawn = require('child_process').spawn;
-var app = require('./server');
+var Server = require('./server');
+var mockDB = require('./mockDB');
 
+var db = new mockDB();
 var port = process.env.PORT || 3000;
 
-var server = app.listen(port, function() {
+var server = new Server(db).init(port, function() {
   process.env.URL = 'http://localhost: ' + port;
   return glob('test', function(err, filename) {
     var child = spawn('mocha', ['--recursive'].concat(filename));
     child.stdout.on('data', function(msg) {
+      db.emptyCart();
       return process.stdout.write(msg);
     });
     child.stderr.on('data', function(msg) {

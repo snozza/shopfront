@@ -9,21 +9,22 @@ describe('#Mock Database', function() {
     done();
   });
 
-  it('has existing example items', function(done) {
+  it('has a database of items', function(done) {
     expect(db.db['1']).to.be.ok;
-    done();
-  });
-
-  it('can return an item to database', function(done) {
-    var startStock = db.db['1'].stock;
-    expect(db.returnItem('1')).to.be.above(startStock);
-    expect(db.cart).to.be.empty;
     done();
   });
 
   it('can take an item from the database and add to cart', function(done) {
     expect(db.takeItem('1')).to.be.ok;
     expect(db.cart['1']).to.exist;
+    done();
+  });
+
+   it('can return an item to database', function(done) {
+    var startStock = db.takeItem('1').stock;
+    db.returnItem('1');
+    expect(db.db['1'].stock).to.be.above(startStock);
+    expect(db.cart).to.be.empty;
     done();
   });
 
@@ -50,6 +51,14 @@ describe('#Mock Database', function() {
     db.takeItem('1');
     db.takeItem('2');
     expect(Object.keys(db.showCart()).length).to.eql(2);
+    done();
+  });
+
+  it('can empty the cart', function(done) {
+    db.takeItem('1');
+    db.takeItem('2');
+    db.emptyCart();
+    expect(db.cart).to.be.empty();
     done();
   });
 });

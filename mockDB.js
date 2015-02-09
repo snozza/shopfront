@@ -1,4 +1,4 @@
-function DB() {
+function DB(cBack) {
   this.db = { '1': {id: '1', name: "Almond Toe Court Shoes, Patent Black",
                 category: "Women's Footwear", price: 99.00, stock: 5},
               '2': {id: '2', name: "Suede Shoes, Blue",
@@ -32,6 +32,7 @@ function DB() {
   this.fiftyDiscount = -10.00;
   this.seventyFiveDiscount = -15.00;
   this.itemDiscount = ["Men's Footwear", "Women's Footwear"];
+  var cBack = (cBack || function() {})();
 }
 
 DB.prototype._increaseStock = function(id) {
@@ -86,6 +87,12 @@ DB.prototype.removeFromCart = function(id) {
   delete this.cart[id];
   if(Object.keys(this.cart).length === 0) {
     this.vouchers = {};
+  }
+};
+
+DB.prototype.emptyCart = function() {
+  for(var item in this.cart) {
+    this.removeFromCart(this.cart[item][0].id)
   }
 };
 

@@ -67,6 +67,7 @@ describe('#Shopping', function() {
       this.timeout(10000);
       var total;
       client
+        .click('//*[@data-id="1"]')
         .click('//*[@data-id="2"]')
         .click('#cart')
         .waitForExist('.arrow', 3000)
@@ -81,6 +82,7 @@ describe('#Shopping', function() {
       this.timeout(10000);
       var total;
       client
+        .click('//*[@data-id="2"]')
         .click('#cart')
         .waitForExist('.itemName', 3000)
         .click('.popbtn')
@@ -88,7 +90,7 @@ describe('#Shopping', function() {
         .click('.glyphicon-remove')
         .getText('.price', function(err, price) {
           total = price.length-1
-          expect(price[total]).to.contain('£42.00');
+          expect(price[total]).to.contain('£0.00');
         })
         .call(done);
     });
@@ -99,6 +101,7 @@ describe('#Shopping', function() {
     it('can enter a discount code and see new total', function(done) {
       this.timeout(10000);
       client
+        .click('//*[@data-id="2"]')
         .click('#cart')
         .waitForExist('.itemName', 3000)
         .getText('.price', function(err, price) {
@@ -116,11 +119,12 @@ describe('#Shopping', function() {
     it('receive an automatic discount when order is over £50', function(done) {
       this.timeout(10000);
       client
+        .click('//*[@data-id="3"]')
         .click('//*[@data-id="2"]')
         .click('#cart')
         .waitForExist('.itemName', 3000)
         .getText('.price', function(err, price) {
-          expect(price[price.length-1]).to.contain('£54.00')
+          expect(price[price.length-1]).to.contain('£51.00')
         })
         .call(done)
     });

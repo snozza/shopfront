@@ -34,8 +34,8 @@ describe('#Navigating', function() {
 
     it('has a product category list', function(done) {
       client.
-        getText('.lead', function(err, text) {
-          expect(text).to.eql('Categories');
+        getText('.list-group-item', function(err, text) {
+          expect(text[0]).to.eql('All Products');
         })
         .call(done);
     });
