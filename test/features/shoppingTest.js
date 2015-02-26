@@ -46,7 +46,7 @@ describe('#Shopping', function() {
         .click('#cart')
         .waitForExist('.itemName', 3000)
         .getText('.itemName', function(err, text) {
-          expect(text[0]).to.contain("Almond Toe Court Shoes")
+          expect(text[0]).to.contain("Black High Heel")
         })
         .call(done);
     });
@@ -58,7 +58,7 @@ describe('#Shopping', function() {
         .click('#cart')
         .waitForExist('.itemName', 3000)
         .getText('.itemName', function(err, text) {
-            expect(text[1]).to.not.contain("Flip Flops, Blue")
+            expect(text[1]).to.not.contain("Adidas Sneakers")
         })
         .call(done);
     });

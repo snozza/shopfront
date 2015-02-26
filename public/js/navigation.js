@@ -42,18 +42,20 @@ function Navigation() {
 };
 
 Navigation.prototype.getAllItems = function() {
-  $('#products').empty();
+  var products = $('#products');
   var _this = this;
+  var items = '';
   $.get('/items', function(data) {
     $.each(data.items, function(index, item) {
-      $('#products').append(_this.itemHTML(item));
+      items += _this.itemHTML(item);
     });
+    products.empty().append(items);
     _this.updateCartCount(data.cart);
   });
 }
 
 Navigation.prototype.addToCart = function(id) {
-  _this = this;
+  var _this = this;
   $.post('/items', {id: id}, function(data) {
     _this.updateCartCount(data.cart);
     if(!data.item) return _this.alert("Out of stock");
@@ -111,12 +113,14 @@ Navigation.prototype.alert = function(message) {
 };
 
 Navigation.prototype.filter = function(category) {
-  $('#products').empty();
+  var products = $('#products');
   var _this = this;
+  var items = ''
   $.get('/filter', {category: category}, function(data) {
     $.each(data.items, function(index, item) {
-      $('#products').append(_this.itemHTML(item));
+      items += _this.itemHTML(item);
     });
+    products.empty().append(items);
     _this.updateCartCount(data.cart);
   });
 };

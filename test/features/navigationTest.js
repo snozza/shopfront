@@ -27,7 +27,7 @@ describe('#Navigating', function() {
       client
         .getTitle(function(err, title) {
           expect(err).to.not.be.true;
-          expect(title).to.eql('Clothinator Store')
+          expect(title).to.eql('El Clothing Shopo')
         })
         .call(done);
     });
@@ -45,8 +45,7 @@ describe('#Navigating', function() {
         .click('//*[@id="categories"]/div[2]/div[1]/div/a[4]')
         .waitForExist('.price', 2000)
         .getText('//*[@id="products"]/div[1]/div/div[1]/h4[2]/a', function(err, text) {
-          console.log(text)
-          expect(text).to.eql('Lightweight Patch Pocket Blazer, Deer');
+          expect(text).to.eql('Fancy Dress');
         })
         .call(done);
     });

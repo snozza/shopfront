@@ -1,7 +1,7 @@
 {
-  "name": "deloitte_shop",
+  "name": "shopfront",
   "version": "1.0.0",
-  "description": "Deloitte Shop",
+  "description": "El Clothing Shop",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

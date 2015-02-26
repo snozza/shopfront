@@ -1,56 +1,44 @@
-Deloitte Digital Development Test
+Shopfront - Basic shop with checkout
 ========================
 
 ### Introduction
 
-Deloitte Digital Development Test - A retailer that sells different categories of clothes. Includes a shopping cart and the ability to apply discount codes.
-
-### Methodology
-
-As this is largely a front-end test, the obvious approach would be to use a front-end framework such as Angular to expedite the development process. However, I figured that it would be of greater demonstration value to write the front-end code from scratch, using only JavaScript/JQuery. It is also a single page webapp.
-
-I decided to build the platform with a basic Node.js server. This makes the standard server setup slightly more difficult, but with the added avantage of JavaScript end-to-end as well as simple integration of websockets. Bootstrap was used to get a simple design up and running.
-
-Also, instead of using a live database, I have created a mock-database object (and associated access functions) to simulate the database interaction.
-
-The core front-end code is located in public/js in the files navigation.js, popover.js, and socketListeners.js.
-
-All products and cart items are created dynamically by using template html which is then appended to appropriate elements depending on the values in the mock database.
-This makes it easier to add new content to the database, which is instantly reflected on the homepage.
-
-Placeholder content has been included in other parts of the website.
-
-Everything was test driven with mocha (and selenium webdriver for feature tests);
-
-### To-Do
-
-Major refactoring and removal of duplicate methods
+A shop front with checkout. JavaScript was used end to end (node.js), as well as JQuery. There is no persistence, instead a mockDB object has been used which includes retrieval and modification functions. Items and checkout are populated via Ajax. Sockets are also included to provide realtime change of stock for all sessions.
+Unit tests with Mocha and acceptance tests with Webdriverio + Mocha.
 
 ### Languages/Platforms/Tools
 
 * Node.js
-* Javascript
-* HTML/CSS
 * Express
 * Mocha
-* Selenium webdriver
 * Socket.io
-* Webdriver.io
+* Selenium
+* Webdriverio
 * jQuery
-* Bootstrap
 
+### To-do List
+
+- [ ] Add persistence (currntly using a mock database object)
+- [ ] More use of Jquery animations for cool effects
+- [ ] Improve the CSS and HTML (Current design is rather simple - using bootstrap).
+- [ ] Find better testing tools for feature testing AJAX and JQuery.
+- [ ] Removal of placeholder images
+- [ ] Refactor code and remove duplication
 
 ### Instructions
 
-Ensure that Node.js and npm are installed.
-Easiest way to install is to visit http://nodejs.org/ - click install
-and follow instructions. This works better than using an a package manager
-such as brew which doesn't defaul with NPM.
+No plans to deploy the app.
+
+Clone the repository:
+
+```
+$ git clone git@github.com:snozza/shopfront.git
+```
 
 Change into the directory and npm install the modules:
 
 ```
-$ cd /path_to/deloitte_shop
+$ cd shopfront
 $ npm install
 ```
 
@@ -65,9 +53,7 @@ Download the chromedriver executable from http://chromedriver.storage.googleapis
 Futher information can be found at https://code.google.com/p/selenium/wiki/ChromeDriver
 
 Download the Selenium stand-alone server from http://www.seleniumhq.org/download
-then in a separate terminal run:
-
-$ java -jar /pathtofile/selenium-server-standalone-2.44.0.jar
+and place in the root of the project directory.
 
 ```
 
@@ -75,7 +61,6 @@ Run the tests:
 
 ```
 Please use the following test runner (includes setup and teardown of server and database)
-This will run a live browser.
 
 $ node mocha_runner.js
 ```
@@ -83,4 +68,4 @@ $ node mocha_runner.js
 Start the node server and visit http://localhost:3000/
 
 ```
-$ node server.js
+$ node app.js

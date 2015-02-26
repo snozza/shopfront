@@ -27,7 +27,7 @@ describe('#Alerts', function() {
         click('//*[@data-id="6"]')
         .waitForVisible('.sticky', 2000)
         .getText('.sticky ', function(err, text) {
-          expect(text).to.contain('Gold Button Cardigan');
+          expect(text).to.contain('Orange Cardigan');
         })
         .call(done);
     });

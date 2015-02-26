@@ -9,6 +9,7 @@ var port = process.env.PORT || 3000;
 var server = new Server(db).init(port, function() {
   process.env.URL = 'http://localhost: ' + port;
   return glob('test', function(err, filename) {
+    var selenium = spawn("java", ['-jar', 'selenium-server-standalone-2.44.0.jar']);
     var child = spawn('mocha', ['--recursive'].concat(filename));
     child.stdout.on('data', function(msg) {
       db.emptyCart();
